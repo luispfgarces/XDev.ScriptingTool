@@ -1,8 +1,6 @@
 ﻿namespace XDev.ScriptingTool.ConsolePresentation.Observers.ConsoleOutputs.ScriptingStatusInterpreters.Implementations
 {
     using System;
-    using System.Text;
-    using ConsolePresentation.ConsoleOutputs;
     using Models;
 
     /// <summary>
@@ -18,21 +16,7 @@
         /// <returns></returns>
         public Message InterpretScriptingStatus(ScriptingStatus scriptingStatus)
         {
-            ScriptCompileResult scriptCompileResult = scriptingStatus.AditionalData as ScriptCompileResult;
-
-            StringBuilder interpretedStatusMessage = new StringBuilder($"[{ scriptCompileResult.CompiledScript.FileDiscoveryInfo.FileName }]: FAIL");
-
-            foreach (var error in scriptCompileResult.Errors)
-            {
-                interpretedStatusMessage.AppendLine();
-                interpretedStatusMessage.Append(error);
-            }
-
-            return new Message
-            {
-                Color = ConsoleOutputColor.Red,
-                Text = interpretedStatusMessage.ToString()
-            };
+            throw new NotImplementedException("Script compilation not supported.");
         }
     }
 }

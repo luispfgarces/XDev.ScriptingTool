@@ -22,7 +22,7 @@
             return new Message
             {
                 Color = ConsoleOutputColor.Blue,
-                Text = $"[{ scriptExecuteInfo.FileName }]: { scriptExecuteInfo.ScriptClass }.{ scriptExecuteInfo.ScriptMethod }() executing..."
+                Text = $"[{ scriptExecuteInfo.FileName }]: Script executing..."
             };
         }
     }

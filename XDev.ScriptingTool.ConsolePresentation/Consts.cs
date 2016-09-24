@@ -9,6 +9,11 @@
     internal static class Consts
     {
         /// <summary>
+        /// The assuming current path message
+        /// </summary>
+        public static readonly string AssumingCurrentPathMessage = "ScriptsPath not specified... Assuming current folder to search scripts.";
+
+        /// <summary>
         /// The exit message
         /// </summary>
         public static readonly string ExitMessage = "Press any key to exit...";
@@ -31,7 +36,6 @@
         /// <summary>
         /// The usage message constant
         /// </summary>
-        public static readonly string UsageMessage = $@"
-    USAGE: wsc.exe {Consts.PathParamName}{ParamValueSeparator}<scriptsPath>";
+        public static readonly string UsageMessage = $@"USAGE: { Assembly.GetCallingAssembly().GetName().Name }.exe [{Consts.PathParamName}{ParamValueSeparator}<scriptsPath>]";
     }
 }

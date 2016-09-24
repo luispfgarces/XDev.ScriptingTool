@@ -1,7 +1,6 @@
 ﻿namespace XDev.ScriptingTool.DependencyInjection
 {
     using System;
-    using Microsoft.FSharp.Compiler.SimpleSourceCodeServices;
     using Services;
     using Services.Implementations;
 
@@ -16,10 +15,8 @@
         /// <param name="dependencyInjectionContainer">The dependency injection container.</param>
         public static void ConfigureWindowsSystemCustomizations(this IDependencyInjectionContainer dependencyInjectionContainer)
         {
-            dependencyInjectionContainer.Register<ICompiledScriptExecutorService, CompiledScriptExecutorService>();
-            dependencyInjectionContainer.Register<IFileDiscoveryService, FileDiscoveryService>(new { fileSearchPattern = "*.fsx" });
-            dependencyInjectionContainer.Register<SimpleSourceCodeServices>();
-            dependencyInjectionContainer.Register<IScriptCompilerService, FSharpScriptCompilerService>();
+            dependencyInjectionContainer.Register<IFileDiscoveryService, FileDiscoveryService>(new { fileSearchPattern = "*.csx" });
+            dependencyInjectionContainer.Register<IScriptLoaderService, ScriptLoaderService>();
             dependencyInjectionContainer.Register<IScriptingService, ScriptingService>();
         }
     }

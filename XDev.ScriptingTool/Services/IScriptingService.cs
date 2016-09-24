@@ -1,7 +1,6 @@
 ﻿namespace XDev.ScriptingTool.Services
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Models;
 
@@ -13,8 +12,8 @@
         /// <summary>
         /// Executes the scripts asynchronously.
         /// </summary>
-        /// <param name="scriptFilesDiscoveryInfo">The script files discovery information.</param>
+        /// <param name="scriptFileDiscoveryInfo">The script files discovery information.</param>
         /// <returns></returns>
-        Task ExecuteScriptsAsync(IEnumerable<FileDiscoveryInfo> scriptFilesDiscoveryInfo);
+        Task ExecuteScriptAsync(FileDiscoveryInfo scriptFileDiscoveryInfo);
     }
 }

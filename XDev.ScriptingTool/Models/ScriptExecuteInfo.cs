@@ -13,11 +13,9 @@
         /// <param name="fileName">Name of the file.</param>
         /// <param name="scriptClass">The script class.</param>
         /// <param name="scriptMethod">The script method.</param>
-        public ScriptExecuteInfo(string fileName, string scriptClass, string scriptMethod)
+        public ScriptExecuteInfo(string fileName)
         {
             this.FileName = fileName;
-            this.ScriptClass = scriptClass;
-            this.ScriptMethod = scriptMethod;
         }
 
         /// <summary>
@@ -25,18 +23,6 @@
         /// </summary>
         /// <value>The name of the file.</value>
         public string FileName { get; private set; }
-
-        /// <summary>
-        /// Gets the script class.
-        /// </summary>
-        /// <value>The script class.</value>
-        public string ScriptClass { get; private set; }
-
-        /// <summary>
-        /// Gets the script method.
-        /// </summary>
-        /// <value>The script method.</value>
-        public string ScriptMethod { get; private set; }
 
         /// <summary>
         /// Gets the thrown exception.
@@ -50,7 +36,7 @@
         /// <returns></returns>
         public ScriptExecuteInfo CreateCopy()
         {
-            return new ScriptExecuteInfo(this.FileName, this.ScriptClass, this.ScriptMethod);
+            return new ScriptExecuteInfo(this.FileName);
         }
     }
 }

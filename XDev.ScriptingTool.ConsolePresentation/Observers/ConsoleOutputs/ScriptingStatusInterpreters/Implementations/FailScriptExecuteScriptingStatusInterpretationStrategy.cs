@@ -20,7 +20,7 @@
         {
             ScriptExecuteInfo scriptExecuteInfo = scriptingStatus.AditionalData as ScriptExecuteInfo;
 
-            StringBuilder interpretedStatusMessage = new StringBuilder($"[{ scriptExecuteInfo.FileName }]: { scriptExecuteInfo.ScriptClass }.{ scriptExecuteInfo.ScriptMethod }() FAIL");
+            StringBuilder interpretedStatusMessage = new StringBuilder($"[{ scriptExecuteInfo.FileName }]: FAIL");
 
             interpretedStatusMessage.AppendLine();
             interpretedStatusMessage.Append(scriptExecuteInfo.ThrownException.Message);

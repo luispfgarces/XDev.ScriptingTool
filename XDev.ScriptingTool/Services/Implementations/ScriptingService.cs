@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.CSharp.Scripting;
     using Models;
     using Observers;
 
@@ -13,117 +14,77 @@
     internal class ScriptingService : IScriptingService
     {
         /// <summary>
-        /// The compiled script executor service
-        /// </summary>
-        private readonly ICompiledScriptExecutorService compiledScriptExecutorService;
-
-        /// <summary>
         /// The observers
         /// </summary>
         private readonly IEnumerable<IScriptingStatusObserver> observers;
 
         /// <summary>
-        /// The script compiler service
+        /// The script loader service
         /// </summary>
-        private readonly IScriptCompilerService scriptCompilerService;
+        private readonly IScriptLoaderService scriptLoaderService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScriptingService"/> class.
         /// </summary>
-        /// <param name="compiledScriptExecutorService">The compiled script executor service.</param>
-        /// <param name="scriptCompilerService">The script compiler service.</param>
+        /// <param name="scriptLoaderService">The script loader service.</param>
         /// <param name="observers">The observers.</param>
         public ScriptingService(
-            ICompiledScriptExecutorService compiledScriptExecutorService,
-            IScriptCompilerService scriptCompilerService,
+            IScriptLoaderService scriptLoaderService,
             IScriptingStatusObserver[] observers)
         {
-            this.compiledScriptExecutorService = compiledScriptExecutorService;
             this.observers = observers;
-            this.scriptCompilerService = scriptCompilerService;
+            this.scriptLoaderService = scriptLoaderService;
         }
 
         /// <summary>
         /// Executes the scripts asynchronously.
         /// </summary>
-        /// <param name="scriptFilesDiscoveryInfo">The script files discovery information.</param>
+        /// <param name="scriptFileDiscoveryInfo">The script files discovery information.</param>
         /// <returns></returns>
-        public async Task ExecuteScriptsAsync(IEnumerable<FileDiscoveryInfo> scriptFilesDiscoveryInfo)
+        public async Task ExecuteScriptAsync(FileDiscoveryInfo scriptFileDiscoveryInfo)
         {
-            List<CompiledScript> compiledScripts = new List<CompiledScript>(0);
+            Script script = await this.scriptLoaderService.LoadScript(scriptFileDiscoveryInfo.FullFileName).ConfigureAwait(false);
 
-            // Phase 1: Compile scripts.
-            this.NotifyObservers(new ScriptingStatus
+            this.NotifyObservers(ScriptingStatusDescription.BeginScriptExecute, script.GetScriptExecuteInfo());
+
+            try
             {
-                ScriptingStatusDescription = ScriptingStatusDescription.BeginAllScriptsCompile
-            });
-
-            foreach (FileDiscoveryInfo scriptFileDiscoveryInfo in scriptFilesDiscoveryInfo)
+                await CSharpScript.EvaluateAsync(script.Content).ConfigureAwait(false);
+                this.NotifyObservers(ScriptingStatusDescription.SuccessScriptExecute, script.GetScriptExecuteInfo());
+            }
+            catch (Exception ex)
             {
-                this.NotifyObservers(new ScriptingStatus
-                {
-                    AditionalData = scriptFileDiscoveryInfo,
-                    ScriptingStatusDescription = ScriptingStatusDescription.BeginScriptCompile
-                });
+                ScriptExecuteInfo otherErrorScriptExecuteInfo = script.GetScriptExecuteInfo();
+                otherErrorScriptExecuteInfo.ThrownException = ex;
 
-                ScriptCompileResult scriptCompileResult = await this.scriptCompilerService.CompileScriptAsync(scriptFileDiscoveryInfo);
-
-                if (scriptCompileResult.CompilationSuccessful)
-                {
-                    CompiledScript compiledScript = scriptCompileResult.CompiledScript;
-                    compiledScripts.Add(compiledScript);
-
-                    this.NotifyObservers(new ScriptingStatus
-                    {
-                        AditionalData = scriptCompileResult,
-                        ScriptingStatusDescription = ScriptingStatusDescription.SuccessScriptCompile
-                    });
-                }
-                else
-                {
-                    this.NotifyObservers(new ScriptingStatus
-                    {
-                        AditionalData = scriptCompileResult,
-                        ScriptingStatusDescription = ScriptingStatusDescription.FailScriptCompile
-                    });
-                }
-
-                this.NotifyObservers(new ScriptingStatus
-                {
-                    AditionalData = scriptFileDiscoveryInfo,
-                    ScriptingStatusDescription = ScriptingStatusDescription.FinalizeScriptCompile
-                });
+                this.NotifyObservers(ScriptingStatusDescription.FailScriptExecute, otherErrorScriptExecuteInfo);
             }
 
-            this.NotifyObservers(new ScriptingStatus
-            {
-                ScriptingStatusDescription = ScriptingStatusDescription.FinalizeAllScriptsCompile
-            });
-
-            // Phase 2: Execute compiled scripts.
-            this.NotifyObservers(new ScriptingStatus
-            {
-                ScriptingStatusDescription = ScriptingStatusDescription.BeginAllScriptsExecute
-            });
-
-            foreach (CompiledScript compiledScript in compiledScripts)
-            {
-                await this.compiledScriptExecutorService.ExecuteCompiledScriptAsync(compiledScript)
-                    .ConfigureAwait(false);
-            }
-
-            this.NotifyObservers(new ScriptingStatus
-            {
-                ScriptingStatusDescription = ScriptingStatusDescription.FinalizeAllScriptsExecute
-            });
+            this.NotifyObservers(ScriptingStatusDescription.FinalizeScriptExecute, script.GetScriptExecuteInfo());
         }
 
         /// <summary>
         /// Notifies the observers.
         /// </summary>
-        /// <param name="scriptingStatus">The scripting status.</param>
-        private void NotifyObservers(ScriptingStatus scriptingStatus)
+        /// <param name="scriptingStatusDescription">The scripting status description.</param>
+        private void NotifyObservers(ScriptingStatusDescription scriptingStatusDescription)
         {
+            this.NotifyObservers(scriptingStatusDescription, null);
+        }
+
+        /// <summary>
+        /// Notifies the observers.
+        /// </summary>
+        /// <param name="scriptingStatusDescription">The scripting status description.</param>
+        /// <param name="aditionalData">The aditional data.</param>
+        private void NotifyObservers(ScriptingStatusDescription scriptingStatusDescription, object aditionalData)
+        {
+            ScriptingStatus scriptingStatus = new ScriptingStatus
+            {
+                AditionalData = aditionalData,
+                ScriptingStatusDescription = scriptingStatusDescription
+            };
+
             foreach (IScriptingStatusObserver observer in this.observers)
             {
                 observer.ReceiveMessage(this, scriptingStatus);
