@@ -19,11 +19,25 @@
         private readonly IUnityContainer unityContainer;
 
         /// <summary>
+        /// The disposed value
+        /// </summary>
+        private bool disposedValue = false;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="UnityDependencyInjectionContainer"/> class.
         /// </summary>
         public UnityDependencyInjectionContainer()
         {
             this.unityContainer = new UnityContainer();
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
         }
 
         /// <summary>
@@ -181,6 +195,36 @@
         public TService Resolve<TService>() where TService : class
         {
             return this.unityContainer.Resolve<TService>();
+        }
+
+        /// <summary>
+        /// Resolves all concrete types matching the requested service type.
+        /// </summary>
+        /// <typeparam name="TService">The type of the service.</typeparam>
+        /// <returns></returns>
+        public IEnumerable<TService> ResolveAll<TService>() where TService : class
+        {
+            return this.unityContainer.ResolveAll<TService>();
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing">
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        /// unmanaged resources.
+        /// </param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    this.unityContainer.Dispose();
+                }
+
+                disposedValue = true;
+            }
         }
 
         /// <summary>

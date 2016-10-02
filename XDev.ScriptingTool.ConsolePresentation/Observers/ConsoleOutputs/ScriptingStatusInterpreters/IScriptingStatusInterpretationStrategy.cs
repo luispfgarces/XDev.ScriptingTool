@@ -4,7 +4,7 @@
     using ScriptingTool.Models;
 
     /// <summary>
-    /// Represents a interface contract for scriptin status interpreter that issues human-readable
+    /// Represents a interface contract for a scripting status interpreter that issues human-readable
     /// messages for a given state.
     /// </summary>
     internal interface IScriptingStatusInterpretationStrategy

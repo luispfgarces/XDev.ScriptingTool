@@ -5,6 +5,8 @@
     using ConsoleOutputs;
     using DependencyInjection;
     using Observers.ConsoleOutputs;
+    using Observers.ConsoleOutputs.FileDiscoveryStatusInterpreters;
+    using Observers.ConsoleOutputs.FileDiscoveryStatusInterpreters.Implementations;
     using Observers.ConsoleOutputs.ScriptingStatusInterpreters;
     using Observers.ConsoleOutputs.ScriptingStatusInterpreters.Implementations;
     using ScriptingTool.Observers;
@@ -33,6 +35,8 @@
             this.DependencyInjectionContainer.Register<IConsoleOutput, ConsoleOutput>();
             this.DependencyInjectionContainer.Register<IScriptingStatusInterpretationStrategyFactory, ScriptingStatusInterpretationStrategyFactory>();
             this.DependencyInjectionContainer.Register<IScriptingStatusObserver, ConsoleOutputScriptingStatusObserver>("a");
+            this.DependencyInjectionContainer.Register<IFileDiscoveryStatusInterpretationStrategyFactory, FileDiscoveryStatusInterpretationStrategyFactory>();
+            this.DependencyInjectionContainer.Register<IFileDiscoveryStatusObserver, ConsoleOutputFileDiscoveryStatusObserver>("a");
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿namespace XDev.ScriptingTool.DependencyInjection
 {
     using System;
+    using System.Linq;
+    using Observers;
     using Services;
     using Services.Implementations;
 
@@ -15,7 +17,7 @@
         /// <param name="dependencyInjectionContainer">The dependency injection container.</param>
         public static void ConfigureWindowsSystemCustomizations(this IDependencyInjectionContainer dependencyInjectionContainer)
         {
-            dependencyInjectionContainer.Register<IFileDiscoveryService, FileDiscoveryService>(new { fileSearchPattern = "*.csx" });
+            dependencyInjectionContainer.Register<IFileDiscoveryService, FileDiscoveryService>((dic) => new FileDiscoveryService("*.csx", dic.ResolveAll<IFileDiscoveryStatusObserver>().ToArray()));
             dependencyInjectionContainer.Register<IScriptLoaderService, ScriptLoaderService>();
             dependencyInjectionContainer.Register<IScriptingService, ScriptingService>();
         }

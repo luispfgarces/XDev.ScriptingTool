@@ -21,14 +21,21 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeAnalysis, Version=1.3.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -131,8 +138,11 @@
     <Compile Include="DependencyInjection\DependencyInjectionContainerExtensions.cs" />
     <Compile Include="Models\FileDiscoveryInfo.cs" />
     <Compile Include="DependencyInjection\IDependencyInjectionContainer.cs" />
+    <Compile Include="Models\FileDiscoveryStatus.cs" />
+    <Compile Include="Models\FileDiscoveryStatusDescription.cs" />
     <Compile Include="Models\Script.cs" />
     <Compile Include="Models\ScriptExecuteInfo.cs" />
+    <Compile Include="Observers\IFileDiscoveryStatusObserver.cs" />
     <Compile Include="Observers\IInstanceObserver.cs" />
     <Compile Include="Observers\IObservableInstance.cs" />
     <Compile Include="Observers\IScriptingStatusObserver.cs" />

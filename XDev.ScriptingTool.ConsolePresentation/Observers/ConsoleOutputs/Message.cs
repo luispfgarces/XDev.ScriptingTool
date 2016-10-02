@@ -1,4 +1,4 @@
-﻿namespace XDev.ScriptingTool.ConsolePresentation.Observers.ConsoleOutputs.ScriptingStatusInterpreters
+﻿namespace XDev.ScriptingTool.ConsolePresentation.Observers.ConsoleOutputs
 {
     using System;
     using ConsolePresentation.ConsoleOutputs;

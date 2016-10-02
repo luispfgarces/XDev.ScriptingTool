@@ -1,11 +1,13 @@
 ﻿namespace XDev.ScriptingTool.DependencyInjection
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// <see cref="IDependencyInjectionContainer"/>
     /// </summary>
-    public interface IDependencyInjectionContainer
+    /// <seealso cref="IDisposable"/>
+    public interface IDependencyInjectionContainer : IDisposable
     {
         /// <summary>
         /// Registers the specified type to be resolved with the specified concrete type.
@@ -110,6 +112,14 @@
         /// <typeparam name="TService">The type of the service.</typeparam>
         /// <returns></returns>
         TService Resolve<TService>()
+            where TService : class;
+
+        /// <summary>
+        /// Resolves all concrete types matching the requested service type.
+        /// </summary>
+        /// <typeparam name="TService">The type of the service.</typeparam>
+        /// <returns></returns>
+        IEnumerable<TService> ResolveAll<TService>()
             where TService : class;
     }
 }
