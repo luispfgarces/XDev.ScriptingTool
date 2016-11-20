@@ -1,12 +1,11 @@
-﻿namespace XDev.ScriptingTool.ConsolePresentation
+﻿namespace XDev.ScriptingTool.WpfPresentation
 {
     using System;
-    using DependencyInjection;
+    using Controllers;
+    using ViewModels;
+    using XDev.ScriptingTool.DependencyInjection;
 
-    /// <summary>
-    /// <see cref="ConsoleBootrapper"/>
-    /// </summary>
-    internal class ConsoleBootrapper
+    internal class WpfBootstrapper
     {
         /// <summary>
         /// Gets the dependency injection container.
@@ -15,7 +14,7 @@
         public IDependencyInjectionContainer DependencyInjectionContainer { get; private set; }
 
         /// <summary>
-        /// Bootstraps the console application.
+        /// Bootstraps this instance.
         /// </summary>
         public void Bootstrap()
         {
@@ -24,6 +23,10 @@
             this.DependencyInjectionContainer.ConfigureScriptingTool();
 
             this.DependencyInjectionContainer.ConfigureConsoleOutputs();
+
+            this.DependencyInjectionContainer.Register<IScriptingController, ScriptingController>();
+            this.DependencyInjectionContainer.Register<ScriptingToolViewModel>();
+            this.DependencyInjectionContainer.Register<MainWindow>();
         }
     }
 }

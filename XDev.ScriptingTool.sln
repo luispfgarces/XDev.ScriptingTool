@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XDev.ScriptingTool.ConsoleP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XDev.ScriptingTool", "XDev.ScriptingTool\XDev.ScriptingTool.csproj", "{28DC396D-54F2-446F-A334-3784376C0B23}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XDev.ScriptingTool.WpfPresentation", "XDev.ScriptingTool.WpfPresentation\XDev.ScriptingTool.WpfPresentation.csproj", "{82D714EB-F394-4FF1-935B-6C74A3E39560}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XDev.ScriptingTool.ConsoleOutputs", "XDev.ScriptingTool.ConsoleOutputs\XDev.ScriptingTool.ConsoleOutputs.csproj", "{5F72F3C5-795D-47C5-A541-6683D9462BA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{28DC396D-54F2-446F-A334-3784376C0B23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28DC396D-54F2-446F-A334-3784376C0B23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28DC396D-54F2-446F-A334-3784376C0B23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82D714EB-F394-4FF1-935B-6C74A3E39560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82D714EB-F394-4FF1-935B-6C74A3E39560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82D714EB-F394-4FF1-935B-6C74A3E39560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82D714EB-F394-4FF1-935B-6C74A3E39560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F72F3C5-795D-47C5-A541-6683D9462BA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F72F3C5-795D-47C5-A541-6683D9462BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F72F3C5-795D-47C5-A541-6683D9462BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F72F3C5-795D-47C5-A541-6683D9462BA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
