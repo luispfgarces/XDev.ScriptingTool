@@ -3,6 +3,7 @@
     using System;
     using Controllers;
     using ViewModels;
+    using Views;
     using XDev.ScriptingTool.DependencyInjection;
 
     internal class WpfBootstrapper
@@ -26,7 +27,7 @@
 
             this.DependencyInjectionContainer.Register<IScriptingController, ScriptingController>();
             this.DependencyInjectionContainer.Register<ScriptingToolViewModel>();
-            this.DependencyInjectionContainer.Register<MainWindow>();
+            this.DependencyInjectionContainer.Register<MainView>();
         }
     }
 }

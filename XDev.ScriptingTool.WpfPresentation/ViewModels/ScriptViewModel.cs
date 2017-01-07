@@ -1,12 +1,12 @@
 ﻿namespace XDev.ScriptingTool.WpfPresentation.ViewModels
 {
     using System;
-    using PostSharp.Patterns.Model;
+    using PropertyChanged;
 
     /// <summary>
     /// <see cref="ScriptViewModel"/>
     /// </summary>
-    [NotifyPropertyChanged]
+    [ImplementPropertyChanged]
     public class ScriptViewModel
     {
         /// <summary>

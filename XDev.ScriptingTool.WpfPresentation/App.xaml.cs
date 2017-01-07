@@ -2,6 +2,7 @@
 {
     using System.Windows;
     using DependencyInjection;
+    using Views;
 
     /// <summary>
     /// Interaction logic for App.xaml
@@ -32,7 +33,7 @@
         /// </param>
         protected override void OnStartup(StartupEventArgs e)
         {
-            this.MainWindow = this.dependencyInjectionContainer.Resolve<MainWindow>();
+            this.MainWindow = this.dependencyInjectionContainer.Resolve<MainView>();
             this.MainWindow.Show();
         }
     }

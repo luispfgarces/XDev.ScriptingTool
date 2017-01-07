@@ -1,4 +1,4 @@
-﻿namespace XDev.ScriptingTool.WpfPresentation
+﻿namespace XDev.ScriptingTool.WpfPresentation.Views
 {
     using System;
     using System.Diagnostics;
@@ -7,26 +7,26 @@
     using System.Security;
 
     /// <summary>
-    /// <see cref="ConsoleWindow"/>
+    /// <see cref="ConsoleView"/>
     /// </summary>
     /// <seealso cref="IDisposable"/>
     [SuppressUnmanagedCodeSecurity]
-    internal class ConsoleWindow : IDisposable
+    internal class ConsoleView : IDisposable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConsoleWindow"/> class.
+        /// Initializes a new instance of the <see cref="ConsoleView"/> class.
         /// </summary>
-        private ConsoleWindow()
+        private ConsoleView()
         {
-            ConsoleWindow.AllocConsole();
-            ConsoleWindow.InvalidateOutAndError();
+            ConsoleView.AllocConsole();
+            ConsoleView.InvalidateOutAndError();
         }
 
         /// <summary>
         /// Creates a new console window.
         /// </summary>
         /// <returns></returns>
-        public static ConsoleWindow New() => new ConsoleWindow();
+        public static ConsoleView New() => new ConsoleView();
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting
@@ -34,8 +34,8 @@
         /// </summary>
         public void Dispose()
         {
-            ConsoleWindow.SetOutAndErrorNull();
-            ConsoleWindow.FreeConsole();
+            ConsoleView.SetOutAndErrorNull();
+            ConsoleView.FreeConsole();
         }
 
         /// <summary>

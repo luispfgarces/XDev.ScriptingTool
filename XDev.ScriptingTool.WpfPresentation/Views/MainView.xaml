@@ -1,9 +1,9 @@
-﻿<Window x:Class="XDev.ScriptingTool.WpfPresentation.MainWindow"
+﻿<Window x:Class="XDev.ScriptingTool.WpfPresentation.Views.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:XDev.ScriptingTool.WpfPresentation"
+        xmlns:local="clr-namespace:XDev.ScriptingTool.WpfPresentation.Views"
         xmlns:vm="clr-namespace:XDev.ScriptingTool.WpfPresentation.ViewModels"
         mc:Ignorable="d"
         Title="XDev Scripting Tool" Height="550" Width="700">
@@ -40,7 +40,7 @@
                         Command="{Binding SearchScriptsCommand}" />
             </Grid>
         </GroupBox>
-        <ListView Grid.Row="1" Grid.Column="0" x:Name="listViewFoundScripts" ItemsSource="{Binding FoundScripts}" Margin="10,0">
+        <ListView Grid.Row="1" Grid.Column="0" x:Name="listViewFoundScripts" ItemsSource="{Binding FoundScripts}" Margin="10,5">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridViewColumn Header="Execute?" Width="60">
@@ -60,6 +60,14 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="buttonExecute" Content="Execute" HorizontalAlignment="Center" Grid.Row="2" Width="75" Height="20" VerticalAlignment="Center" VerticalContentAlignment="Center" Click="buttonExecute_Click" />
+        <Button x:Name="buttonExecute"
+                Content="Execute"
+                HorizontalAlignment="Center"
+                Grid.Row="2"
+                Width="75"
+                Height="20"
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                Command="{Binding ExecuteScriptsCommand}" IsEnabled="{Binding AnyScriptsSelectedForExecution, Mode=OneWay}" />
     </Grid>
 </Window>
